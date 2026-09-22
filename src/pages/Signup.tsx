@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
-import { useGoogleLogin } from '@react-oauth/google'
+import GoogleAuthButton from '../components/GoogleAuthButton'
 import { useStore } from '../state/store'
 import { ApiError } from '../lib/api'
 import { fileToAvatarDataUrl } from '../lib/image'
@@ -68,11 +68,7 @@ export default function Signup() {
     }
   }
 
-  const googleLogin = useGoogleLogin({
-    flow: 'implicit',
-    onSuccess: (res) => chooseSocial('google', res.access_token),
-    onError: () => pushToast('구글 인증에 실패했어요.'),
-  })
+
 
   async function chooseKakao() {
     try {
@@ -125,7 +121,7 @@ export default function Signup() {
 
   return (
     <div className="flex h-full flex-col">
-      <div className="relative overflow-hidden rounded-b-[32px] bg-gradient-primary px-6 pb-6 pt-safe-t-lg text-white">
+      <div className="relative overflow-hidden rounded-b-[24px] bg-gradient-primary px-6 pb-6 pt-safe-t-lg text-white">
         <div aria-hidden className="pointer-events-none absolute -right-10 -top-14 h-36 w-36 rounded-full bg-white/10" />
         <button
           type="button"
@@ -137,22 +133,23 @@ export default function Signup() {
         </button>
         <h1 className="relative mt-3 text-xl font-black tracking-tight">회원가입</h1>
         <p className="relative mt-1 text-sm text-white/80">
-          {step === 'method' && '어떤 방법으로 시작할까요?'}
+          {step === 'method' && '오늘부터 시작하는 나의 변화.'}
           {step === 'profile' && '친구들과 같은 학교인지 확인하는 데 쓰여요.'}
         </p>
       </div>
 
       {step === 'method' && (
         <div className="flex flex-1 flex-col gap-3 px-6 pb-8 pt-6">
-          <button
+          <GoogleAuthButton
             type="button"
             disabled={socialBusy}
-            onClick={() => googleLogin()}
+            onToken={(token) => chooseSocial('google', token)}
+          onError={() => pushToast('구글 인증에 실패했어요.')}
             className="flex items-center justify-center gap-2 rounded-2xl border border-line bg-surface py-3.5 text-sm font-bold text-ink disabled:opacity-60"
           >
             <GoogleIcon className="h-[18px] w-[18px]" />
             Google로 계속하기
-          </button>
+          </GoogleAuthButton>
           <button
             type="button"
             disabled={socialBusy}

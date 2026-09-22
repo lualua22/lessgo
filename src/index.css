@@ -122,3 +122,24 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+
+:root { color-scheme: dark; }
+body { background: #0A0D12; }
+::selection { background: #4fb9ff40; color: #f5f7fa; }
+:focus-visible { outline: 2px solid #8FE0FF; outline-offset: 4px; }
+input, select, textarea { accent-color: #4FB9FF; }
+input::placeholder, textarea::placeholder { color: #8A94A6; }
+@layer components {
+  .focus-card { background: radial-gradient(ellipse at 90% 20%, #223c534d, transparent 65%), #121923; border: 1px solid #4fb9ff38; box-shadow: 0 0 40px -24px #4fb9ff65; }
+  .primary-action { background: linear-gradient(110deg, #4FB9FF, #8FE0FF); color: #071725; min-height: 52px; border-radius: 14px; font-weight: 700; }
+}
+/* Sky-blue buttons need dark labels; large dark hero panels retain white text. */
+.bg-gradient-primary-soft, .bg-primary { color: #071725; }
+.bg-gradient-primary-soft.text-white, .bg-primary.text-white { color: #071725; }
+.orbit-art { position: absolute; width: 180px; height: 180px; right: -36px; top: 35px; border: 1px solid #4fb9ff20; border-radius: 50%; transform: rotate(-25deg); }
+.orbit-art::before { content: ''; position: absolute; inset: 22px; border: 1px solid #4fb9ff38; border-radius: 50%; }
+.orbit-art::after { content: ''; position: absolute; left: 38px; top: 26px; width: 7px; height: 7px; border-radius: 50%; background: #8FE0FF; box-shadow: 0 0 22px #4FB9FF; }
+.growth-art { position: relative; background: radial-gradient(ellipse at 65% 60%, #173a50 0%, #111923 60%); }
+.growth-art svg { width: 100%; height: 100%; }
+.app-shell { background-image: radial-gradient(ellipse at 90% 0%, #18304725, transparent 45%); }

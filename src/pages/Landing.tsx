@@ -46,7 +46,7 @@ export default function Landing() {
   return (
     <div className="bg-bg">
       {/* Hero */}
-      <header className="relative overflow-hidden bg-gradient-to-b from-[#0B1330] via-[#132B7A] to-[#2E5FE8] px-6 pb-20 pt-8 text-white sm:px-10 sm:pb-28 sm:pt-10">
+      <header className="relative overflow-hidden bg-gradient-to-b from-[#0A0D12] via-[#121C29] to-[#14273B] px-6 pb-20 pt-8 text-white sm:px-10 sm:pb-28 sm:pt-10">
         <div
           aria-hidden
           className="pointer-events-none absolute -right-24 top-0 h-96 w-96 rounded-full bg-[#6E93F5] opacity-30 blur-3xl"
@@ -157,7 +157,7 @@ export default function Landing() {
 
       {/* Stat callout */}
       <section className="px-6 py-16 sm:px-10">
-        <div className="mx-auto flex max-w-5xl flex-col items-center gap-8 rounded-3xl bg-ink px-8 py-14 text-center text-white sm:flex-row sm:justify-around sm:text-left">
+        <div className="mx-auto flex max-w-5xl flex-col items-center gap-8 rounded-3xl bg-surface px-8 py-14 text-center text-white sm:flex-row sm:justify-around sm:text-left">
           <Stat n="10" unit="분 단위" label="AI가 앱별 사용 시간을 정확히 읽어요" />
           <div aria-hidden className="hidden h-16 w-px bg-white/15 sm:block" />
           <Stat n="3" unit="가지 모드" label="혼자 · 친구 · 그룹, 원하는 방식으로" />

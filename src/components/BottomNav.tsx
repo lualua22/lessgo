@@ -11,7 +11,7 @@ const TABS = [
 
 export default function BottomNav() {
   return (
-    <nav className="absolute inset-x-0 bottom-0 z-20 border-t border-line bg-surface/95 backdrop-blur">
+    <nav className="absolute inset-x-0 bottom-0 z-20 rounded-t-[26px] border-t border-line bg-surface/95 backdrop-blur">
       <ul className="flex items-stretch justify-between px-2 pb-safe-b pt-2">
         {TABS.map(({ to, label, Icon }) => (
           <li key={to} className="flex-1">
@@ -26,7 +26,7 @@ export default function BottomNav() {
               {({ isActive }) => (
                 <>
                   <span
-                    className={`flex h-8 w-8 items-center justify-center rounded-full transition-colors ${
+                    className={`flex h-8 w-12 items-center justify-center rounded-full transition-colors ${
                       isActive ? 'bg-primary-tint' : ''
                     }`}
                   >

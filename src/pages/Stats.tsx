@@ -1,3 +1,4 @@
+import PageHeading from '../components/PageHeading'
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
@@ -19,10 +20,10 @@ import { formatKoreanShort, minutesToLabel, todayISO, weekdayKr } from '../lib/d
 import { ChartIcon } from '../components/icons'
 import VerificationCalendar from '../components/VerificationCalendar'
 
-const SUCCESS = '#0CA30C'
-const WARN = '#EC835A'
-const GRID = '#E3EAF7'
-const AXIS_INK = '#898781'
+const SUCCESS = '#4FB9FF'
+const WARN = '#FF9999'
+const GRID = '#2B3340'
+const AXIS_INK = '#8A94A6'
 
 export default function Stats() {
   const { records } = useStore()
@@ -67,7 +68,7 @@ export default function Stats() {
   if (!threshold || chartData.length === 0) {
     return (
       <div className="px-5 pb-6 pt-1">
-        <h1 className="text-lg font-extrabold tracking-tight text-ink">통계</h1>
+        <PageHeading eyebrow="TRACK YOUR GROWTH" title="통계" description="작은 실천이 쌓여, 눈에 보이는 변화로." />
         <div className="mt-4 flex flex-col items-center gap-3 rounded-3xl bg-surface p-8 text-center shadow-card">
           <span className="flex h-12 w-12 items-center justify-center rounded-full bg-primary-tint text-primary-ink">
             <ChartIcon className="h-6 w-6" />
@@ -90,8 +91,8 @@ export default function Stats() {
   }
 
   return (
-    <div className="space-y-4 px-5 pb-6 pt-1">
-      <h1 className="text-lg font-extrabold tracking-tight text-ink">통계</h1>
+    <div className="space-y-5 px-6 pb-7 pt-5">
+      <PageHeading eyebrow="TRACK YOUR GROWTH" title="통계" description="작은 실천이 쌓여, 눈에 보이는 변화로." />
 
       <div className="grid grid-cols-3 gap-2">
         <StatTile label="평균 사용시간" value={minutesToLabel(avgUsage)} />
@@ -153,12 +154,12 @@ export default function Stats() {
                     label={{
                       value: `목표 ${minutesToLabel(threshold.dailyLimitMinutes)}`,
                       position: 'insideTopRight',
-                      fill: '#5B6B8C',
+                      fill: '#A4ADBD',
                       fontSize: 11,
                       fontWeight: 700,
                     }}
                   />
-                  <Tooltip content={<ChartTooltip />} cursor={{ fill: 'rgba(20,33,61,0.04)' }} />
+                  <Tooltip content={<ChartTooltip />} cursor={{ fill: 'rgba(79,185,255,0.08)' }} />
                   <Bar dataKey="minutes" radius={[4, 4, 0, 0]} maxBarSize={22} isAnimationActive={false}>
                     {chartData.map((d) => (
                       <Cell key={d.date} fill={d.fill} />

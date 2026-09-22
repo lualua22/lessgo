@@ -1,3 +1,4 @@
+import PageHeading from '../components/PageHeading'
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useStore } from '../state/store'
@@ -20,7 +21,7 @@ const CARD_ACCENT: Record<string, { bar: string; pill: string }> = {
   solo: { bar: 'bg-line', pill: 'bg-line text-ink-soft' },
   friends: { bar: 'bg-primary', pill: 'bg-primary-tint text-primary-ink' },
   class: { bar: 'bg-success', pill: 'bg-success-tint text-success-text' },
-  school: { bar: 'bg-gold', pill: 'bg-gold-tint text-gold-ink' },
+  school: { bar: 'bg-gold', pill: 'bg-primary-tint text-primary' },
 }
 
 export default function Challenges() {
@@ -47,12 +48,12 @@ export default function Challenges() {
   }
 
   return (
-    <div className="space-y-4 px-5 pb-6 pt-1">
-      <div className="flex items-center justify-between">
-        <h1 className="text-lg font-extrabold tracking-tight text-ink">챌린지</h1>
+    <div className="space-y-5 px-6 pb-7 pt-5">
+      <div className="flex items-center justify-between gap-3">
+        <PageHeading eyebrow="SET YOUR NEXT GOAL" title="챌린지" description="나와의 약속, 함께하는 도전." />
         <Link
           to="/challenges/new"
-          className="rounded-full bg-primary px-4 py-2 text-xs font-bold text-white shadow-pop active:scale-95"
+          className="shrink-0 rounded-xl bg-primary px-4 py-3 text-xs font-bold text-white shadow-pop active:scale-95"
         >
           + 새 챌린지
         </Link>
@@ -79,11 +80,11 @@ export default function Challenges() {
 
       {challenges?.length === 0 && (
         <div className="flex flex-col items-center gap-3 rounded-3xl bg-surface p-8 text-center shadow-card">
-          <span className="flex h-12 w-12 items-center justify-center rounded-full bg-gold-tint text-gold-ink">
+          <span className="flex h-12 w-12 items-center justify-center rounded-full bg-primary-tint text-primary">
             <FlagIcon className="h-6 w-6" />
           </span>
           <p className="text-sm font-bold text-ink">아직 참여한 챌린지가 없어요</p>
-          <p className="text-xs text-ink-soft">개인 목표부터 친구 대결까지 만들어보세요.</p>
+          <p className="text-xs text-ink-soft">첫 목표를 정하면 여기에 도전이 쌓입니다.</p>
         </div>
       )}
 

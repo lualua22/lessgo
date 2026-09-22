@@ -12,7 +12,7 @@ export default function ToastStack({ bottomOffset = 92 }: { bottomOffset?: numbe
       {toasts.map((t) => (
         <div
           key={t.id}
-          className="animate-toast-in rounded-full bg-ink px-4 py-2.5 text-[13px] font-semibold text-white shadow-card"
+          className="animate-toast-in rounded-full bg-surface px-4 py-2.5 text-[13px] font-semibold text-white shadow-card"
         >
           {t.message}
         </div>

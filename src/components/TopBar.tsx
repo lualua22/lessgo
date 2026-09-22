@@ -9,14 +9,14 @@ export default function TopBar() {
   const streak = personalChallenge ? currentStreak(records, { dailyLimitMinutes: personalChallenge.goalMinutes }) : 0
 
   return (
-    <header className="flex items-center justify-between px-5 pb-2 pt-safe-t">
+    <header className="flex items-center justify-between px-6 pb-3 pt-safe-t">
       <div className="flex items-center gap-1.5">
-        <span className="flex h-6 w-6 items-center justify-center rounded-[7px] bg-gradient-primary-soft text-[13px] font-black text-white">
+        <span className="flex h-6 w-6 items-center justify-center rounded-[7px] bg-primary text-[13px] font-black text-white">
           L
         </span>
         <span className="font-display text-[15px] font-extrabold tracking-tight text-ink">LessGo</span>
       </div>
-      <div className="flex items-center gap-1 rounded-full bg-gold-tint px-2.5 py-1 text-xs font-bold text-gold-ink">
+      <div className="flex items-center gap-1 rounded-full bg-surface px-2.5 py-1 text-xs font-bold text-ink-soft">
         <FlameIcon className="h-3.5 w-3.5" />
         {streak}일 연속
       </div>

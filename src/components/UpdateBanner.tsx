@@ -12,7 +12,7 @@ export default function UpdateBanner() {
       <button
         type="button"
         onClick={applyUpdate}
-        className="flex items-center gap-2 rounded-full bg-ink px-4 py-2.5 text-[13px] font-bold text-white shadow-card active:scale-95"
+        className="flex items-center gap-2 rounded-full bg-surface px-4 py-2.5 text-[13px] font-bold text-white shadow-card active:scale-95"
       >
         새 버전이 있어요 · 새로고침
       </button>

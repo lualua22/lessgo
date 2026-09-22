@@ -168,13 +168,49 @@ authRouter.post(
   }),
 )
 
+authRouter.get('/users/search', asyncHandler(async (req, res) => {
+  const user = await requireUser(req, res)
+  if (!user) return
+  const users = await db.searchUsers({ query: String(req.query.q || ''), region: String(req.query.region || ''), school: String(req.query.school || ''), excludeId: user.id })
+  res.json({ users: users.map((u) => ({ id: u.id, name: u.name, avatar: u.avatar, age: u.age, region: u.region, school: u.school, grade: u.grade, bio: u.bio, profileVisibility: u.profileVisibility })) })
+}))
+
+authRouter.get('/friends/requests', asyncHandler(async (req, res) => {
+  const user = await requireUser(req, res)
+  if (!user) return
+  res.json({ requests: await db.listFriendRequests(user.id) })
+}))
+
+authRouter.get('/friends', asyncHandler(async (req, res) => {
+  const user = await requireUser(req, res)
+  if (!user) return
+  res.json({ friends: await db.listFriends(user.id) })
+}))
+
+authRouter.post('/friends/requests', asyncHandler(async (req, res) => {
+  const user = await requireUser(req, res)
+  if (!user) return
+  const receiverId = String(req.body?.userId || '')
+  if (!receiverId || receiverId === user.id) return res.status(400).json({ error: '초대할 사용자를 확인해주세요.' })
+  await db.createFriendRequest(nanoid(12), user.id, receiverId)
+  res.status(201).json({ ok: true })
+}))
+
+authRouter.patch('/friends/requests/:id', asyncHandler(async (req, res) => {
+  const user = await requireUser(req, res)
+  if (!user) return
+  const status = req.body?.status === 'accepted' ? 'accepted' : 'rejected'
+  await db.respondFriendRequest(req.params.id, user.id, status)
+  res.json({ ok: true })
+}))
+
 authRouter.patch(
   '/me',
   asyncHandler(async (req, res) => {
     const user = await requireUser(req, res)
     if (!user) return
 
-    const { avatar, name, school, grade } = req.body ?? {}
+    const { avatar, name, school, grade, age, region, bio, profileVisibility } = req.body ?? {}
     if (name !== undefined && !name.trim()) return res.status(400).json({ error: '이름을 입력해주세요.' })
     if (school !== undefined && !school.trim()) return res.status(400).json({ error: '학교를 입력해주세요.' })
     if (grade !== undefined && !grade.trim()) return res.status(400).json({ error: '학년을 입력해주세요.' })
@@ -184,6 +220,10 @@ authRouter.patch(
       name: name !== undefined ? name.trim() : user.name,
       school: school !== undefined ? school.trim() : user.school,
       grade: grade !== undefined ? grade.trim() : user.grade,
+      age: age !== undefined ? (Number.isFinite(Number(age)) ? Number(age) : null) : user.age,
+      region: region !== undefined ? String(region).trim() : user.region,
+      bio: bio !== undefined ? String(bio).trim() : user.bio,
+      profileVisibility: ['public', 'friends', 'private'].includes(profileVisibility) ? profileVisibility : user.profileVisibility,
     })
     res.json({ user: toPublicUser(updated) })
   }),

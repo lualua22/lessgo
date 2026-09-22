@@ -4,37 +4,16 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Blue, per direct request — kept the neutral cool (not the old
-        // yellow-cream) so it doesn't recreate the exact cream+blue combo
-        // that reads as AI-templated; the blue itself is a deeper, more
-        // saturated tone than the original pastel SaaS blue.
-        bg: '#F3F5FA',
-        surface: '#FFFFFF',
-        ink: '#151A24',
-        'ink-soft': '#4B5567',
-        'ink-faint': '#5E687A',
-        primary: '#2E5FE8',
-        'primary-light': '#6E93F5',
-        'primary-ink': '#1E3FA8',
-        'primary-deep': '#132B7A',
-        'primary-tint': '#E1E9FC',
-        success: '#1F7A4D',
-        'success-text': '#155A3A',
-        'success-tint': '#DFEEE3',
-        warn: '#C23B3B',
-        'warn-text': '#8A2323',
-        'warn-tint': '#F7DEDD',
-        gold: '#B8860B',
-        'gold-ink': '#6B4E0A',
-        'gold-tint': '#F3E6C4',
-        line: '#DEE3ED',
+        bg: '#0A0D12', surface: '#1B1F27', ink: '#F5F7FA',
+        'ink-soft': '#A4ADBD', 'ink-faint': '#8A94A6',
+        primary: '#4FB9FF', 'primary-light': '#8FE0FF',
+        'primary-ink': '#8FE0FF', 'primary-deep': '#071725', 'primary-tint': '#162C40',
+        success: '#30866D', 'success-text': '#85D9B9', 'success-tint': '#17352E',
+        warn: '#C64C58', 'warn-text': '#FF9999', 'warn-tint': '#38212A',
+        gold: '#D1AC63', 'gold-ink': '#E3C68B', 'gold-tint': '#302A20',
+        line: '#2B3340',
       },
       fontFamily: {
-        // Pretendard is the only Hangul-complete family already shipping
-        // (loading a second full Korean webface just for headings would add
-        // several hundred KB) — display is differentiated by weight/tracking
-        // instead of a second typeface: always Black/ExtraBold and always
-        // tighter tracking, never "the same paragraph font, just bigger."
         display: ['Pretendard', '-apple-system', 'BlinkMacSystemFont', '"Apple SD Gothic Neo"', '"Malgun Gothic"', 'sans-serif'],
         body: ['Pretendard', '-apple-system', 'BlinkMacSystemFont', '"Apple SD Gothic Neo"', '"Malgun Gothic"', 'sans-serif'],
       },
@@ -73,10 +52,10 @@ export default {
         shell: '860px',
       },
       boxShadow: {
-        card: '0 10px 28px -16px rgba(21, 26, 36, 0.22)',
-        pop: '0 16px 32px -16px rgba(46, 95, 232, 0.32)',
-        glow: '0 22px 44px -16px rgba(19, 43, 122, 0.45)',
-        ring: '0 12px 26px -12px rgba(30, 63, 168, 0.35)',
+        card: '0 12px 32px -18px rgba(0,0,0,0.65)',
+        pop: '0 8px 28px -16px rgba(79,185,255,0.3)',
+        glow: '0 0 32px -16px rgba(79,185,255,0.3)',
+        ring: '0 0 24px -12px rgba(79,185,255,0.4)',
       },
       borderRadius: {
         sm: '6px',
@@ -93,8 +72,8 @@ export default {
         '3xl': '28px',
       },
       backgroundImage: {
-        'gradient-primary': 'linear-gradient(135deg, #6E93F5 0%, #2E5FE8 55%, #132B7A 100%)',
-        'gradient-primary-soft': 'linear-gradient(135deg, #6E93F5 0%, #1E3FA8 100%)',
+        'gradient-primary': 'linear-gradient(135deg, #1D3349 0%, #162333 55%, #121923 100%)',
+        'gradient-primary-soft': 'linear-gradient(110deg, #4FB9FF 0%, #8FE0FF 100%)',
       },
     },
   },

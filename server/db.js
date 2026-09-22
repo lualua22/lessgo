@@ -36,6 +36,10 @@ function rowToUser(row) {
     equippedBadge: row.equipped_badge ?? null,
     ownedBadges: row.owned_badges ?? [],
     isPremium: row.is_premium,
+    age: row.age ?? null,
+    region: row.region ?? '',
+    bio: row.bio ?? '',
+    profileVisibility: row.profile_visibility ?? 'friends',
     createdAt: row.created_at.toISOString(),
   }
 }
@@ -172,8 +176,8 @@ export const db = {
     if (!current) return null
     const merged = { ...current, ...patch }
     const { rows } = await pool.query(
-      `update users set avatar = $2, name = $3, school = $4, grade = $5 where id = $1 returning *`,
-      [id, merged.avatar, merged.name, merged.school, merged.grade],
+      `update users set avatar = $2, name = $3, school = $4, grade = $5, age = $6, region = $7, bio = $8, profile_visibility = $9 where id = $1 returning *`,
+      [id, merged.avatar, merged.name, merged.school, merged.grade, merged.age ?? null, merged.region ?? '', merged.bio ?? '', merged.profileVisibility ?? 'friends'],
     )
     return rowToUser(rows[0])
   },
@@ -185,6 +189,34 @@ export const db = {
     if (ids.length === 0) return []
     const { rows } = await pool.query('select * from users where id = any($1::text[])', [ids])
     return rows.map(rowToUser)
+  },
+  async searchUsers({ query = '', region = '', school = '', excludeId }) {
+    const values = [excludeId]
+    const filters = ['id <> $1']
+    if (query.trim()) { values.push(`%${query.trim()}%`); filters.push(`name ilike $${values.length}`) }
+    if (region.trim()) { values.push(region.trim()); filters.push(`region = $${values.length}`) }
+    if (school.trim()) { values.push(`%${school.trim()}%`); filters.push(`school ilike $${values.length}`) }
+    const { rows } = await pool.query(`select * from users where ${filters.join(' and ')} order by name asc limit 30`, values)
+    return rows.map(rowToUser)
+  },
+  async createFriendRequest(id, senderId, receiverId) {
+    const { rows } = await pool.query(`insert into friend_requests (id, sender_id, receiver_id) values ($1,$2,$3) on conflict (sender_id, receiver_id) do update set status = 'pending' returning *`, [id, senderId, receiverId])
+    return rows[0]
+  },
+  async listFriendRequests(userId) {
+    const { rows } = await pool.query(`select fr.*, u.name, u.avatar, u.school, u.grade, u.age, u.region, u.bio from friend_requests fr join users u on u.id = fr.sender_id where fr.receiver_id = $1 and fr.status = 'pending' order by fr.created_at desc`, [userId])
+    return rows
+  },
+  async respondFriendRequest(id, userId, status) {
+    const { rows } = await pool.query(`update friend_requests set status = $3 where id = $1 and receiver_id = $2 returning *`, [id, userId, status])
+    if (status === 'accepted' && rows[0]) {
+      await pool.query(`insert into friendships (user_id, friend_id) values ($1,$2),($2,$1) on conflict do nothing`, [rows[0].sender_id, rows[0].receiver_id])
+    }
+    return rows[0]
+  },
+  async listFriends(userId) {
+    const { rows } = await pool.query(`select u.id, u.name, u.avatar, u.school, u.grade, u.age, u.region, u.bio from friendships f join users u on u.id = f.friend_id where f.user_id = $1 order by u.name asc`, [userId])
+    return rows
   },
   async addCash(userId, amount) {
     const { rows } = await pool.query(`update users set cash = cash + $2 where id = $1 returning *`, [userId, amount])

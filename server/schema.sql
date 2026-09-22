@@ -103,3 +103,22 @@ alter table users add column if not exists is_premium boolean not null default f
 -- pages), so it can't double as a secret. api_key is never exposed to
 -- anyone but its own owner.
 alter table users add column if not exists api_key text unique;
+alter table users add column if not exists age int;
+alter table users add column if not exists region text not null default '';
+alter table users add column if not exists bio text not null default '';
+alter table users add column if not exists profile_visibility text not null default 'friends';
+
+create table if not exists friend_requests (
+  id text primary key,
+  sender_id text not null references users(id) on delete cascade,
+  receiver_id text not null references users(id) on delete cascade,
+  status text not null default 'pending',
+  created_at timestamptz not null default now(),
+  unique(sender_id, receiver_id)
+);
+create table if not exists friendships (
+  user_id text not null references users(id) on delete cascade,
+  friend_id text not null references users(id) on delete cascade,
+  created_at timestamptz not null default now(),
+  primary key(user_id, friend_id)
+);

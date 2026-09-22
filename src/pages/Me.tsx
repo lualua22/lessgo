@@ -1,3 +1,4 @@
+import PageHeading from '../components/PageHeading'
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useStore } from '../state/store'
@@ -73,8 +74,8 @@ export default function Me() {
   }
 
   return (
-    <div className="space-y-4 px-5 pb-6 pt-1">
-      <h1 className="text-lg font-extrabold tracking-tight text-ink">마이페이지</h1>
+    <div className="space-y-5 px-6 pb-7 pt-5">
+      <PageHeading eyebrow="MY COMMITMENT" title="마이페이지" description="나의 목표와 성장을 관리하세요." />
 
       <section className="flex items-center gap-4 rounded-3xl bg-surface p-5 shadow-card">
         <label className="group relative shrink-0 cursor-pointer">
@@ -163,7 +164,7 @@ export default function Me() {
         <ToggleRow label="챌린지 알림" checked={challengeAlertOn} onChange={setChallengeAlertOn} />
       </section>
 
-      <section className="rounded-3xl bg-gradient-to-br from-primary to-primary-ink p-5 text-white shadow-pop">
+      <section className="rounded-3xl border border-primary/25 bg-gradient-primary p-5 text-white shadow-pop">
         <p className="text-xs font-bold uppercase tracking-wide text-white/80">프리미엄</p>
         <p className="mt-1 text-lg font-extrabold">더 많은 챌린지, 더 큰 동기부여</p>
         <div className="mt-3 space-y-1.5 text-sm">
@@ -180,7 +181,7 @@ export default function Me() {
         ) : (
           <Link
             to="/premium"
-            className="mt-4 block w-full rounded-xl bg-white py-2.5 text-center text-sm font-extrabold text-primary-ink active:scale-[0.99]"
+            className="mt-4 block w-full rounded-xl bg-primary-tint py-2.5 text-center text-sm font-extrabold text-primary-ink active:scale-[0.99]"
           >
             월 3,900원으로 시작하기
           </Link>
